@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link
+        href="https://fonts.googleapis.com/css?family=Roboto:400,500,900&display=swap&subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Carrois+Gothic+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Monoton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Unit 8</title>
+</head>
+
+<body class="transition">
+    <div class="page-container">
+
+
+        <div class="side-header">
+            <header class="article">WEATHER FOR YOU</header>
+        </div>
+
+        <div class="watch">
+            <div class="time transition"></div>
+        </div>
+
+        <section class="search-city">
+            <input type="text" id="inputCity" placeholder="other country">
+        </section>
+
+        <article class="weather">
+            <div class="container">
+                <p class="cityName">Paris</p>
+                <p class="country">France</p>
+                <span class="icon col-sm-6"></span>
+                <p class="temp col">10&deg;</p>
+                <p class="description">Clouds</p>
+            </div>
+
+            <div class="container2">
+                <p class="pressure"></p>
+                <p class="humidity"></p>
+                <div class="wind wind-hower">
+                    <p>Wind:</p>
+                    <img src="/weather/img/pointer.png" alt="pointer" class="pointer">
+                    <p class="wind-speed"></p>
+                </div>
+            </div>
+
+        </article>
+    </div>
+
+    <script src="https://js.maxmind.com/js/apis/geoip2/v2.1/geoip2.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
