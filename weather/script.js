@@ -1,7 +1,7 @@
 let onSuccess = function (geoipResponse) {
     const cityElement = document.querySelector('.cityName');
     if (cityElement) {
-        sendingRequest(`q=${geoipResponse.city.names.en}`)
+        sendingRequest(`q=${geoipResponse.city.names.en}`);
     }
 
     let countryElement = [];
@@ -11,11 +11,12 @@ let onSuccess = function (geoipResponse) {
 };
 
 let onError = function (error) {
-    window.console.log("something went wrong: " + error.error)
+    window.console.log("something went wrong: " + error.error);
 };
 
 let onLoad = function () {
     geoip2.city(onSuccess, onError);
+    console.log(geoip2);
 };
 
 document.addEventListener('DOMContentLoaded', onLoad);
@@ -191,10 +192,10 @@ function beckgroundImage() {
     }
 
     if (window.matchMedia("(max-width: 500px)").matches == true) {
-        document.body.style.backgroundImage = `url(/weather/img/mobile/${c}.jpg)`;
+        document.body.style.backgroundImage = `url(./img/mobile/${c}.jpg)`;
     }
     if (window.matchMedia("(max-width: 500px)").matches == false) {
-        document.body.style.backgroundImage = `url(/weather/img/pk/${x}${y}.jpg)`;
+        document.body.style.backgroundImage = `url(./img/pk/${x}${y}.jpg)`;
     }
     setTimeout(beckgroundImage, 10000);
 }
