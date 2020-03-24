@@ -1,4 +1,5 @@
 let onSuccess = function (geoipResponse) {
+    console.log(geoipResponse);
     const cityElement = document.querySelector('.cityName');
     if (cityElement) {
         sendingRequest(`q=${geoipResponse.city.names.en}`);
