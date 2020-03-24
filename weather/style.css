@@ -73,7 +73,7 @@ html, body {
     background-color: rgb(254, 255, 249);
     font-size: 1.0rem;
     border-radius: 3px;
-    box-shadow: 3px 3px #989898, 6px 6px #6c6666;
+    box-shadow: 3px 3px #989898, 6px 6px #6c6666fd;
     transition: 2s;
 }
 
