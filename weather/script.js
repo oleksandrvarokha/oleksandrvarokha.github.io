@@ -1,5 +1,5 @@
 function geoApi() {
-    fetch(`https://ip-api.com/json/?fields=status,city`)
+    fetch(`https://ipapi.co/json/`)
         .then(function (resp) { return resp.json() })
         .then(function (data) {
             console.log(data);
