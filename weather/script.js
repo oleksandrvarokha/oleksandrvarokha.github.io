@@ -2,11 +2,10 @@ function geoApi() {
     fetch(`https://ipapi.co/json/`)
         .then(function (resp) { return resp.json() })
         .then(function (data) {
-            console.log(data);
             sendingRequest(`q=${data.city}`);
         })
         .catch(function () {
-            // catch any errors
+            alert("sorry server has some problems,<br> we work on this now, please try later");
         });
 }
 geoApi();
@@ -35,23 +34,26 @@ fetch("./cityList.json")
 
     })
     .catch(function () {
-        // catch any errors
+        alert("sorry server has some problems,<br> we work on this now, please try later");
     });
 
 
-function inputSearchCity(x) {
+function inputSearchCity(data_of_cities) {
     const inputCity = document.querySelector('#inputCity');
+
+    function clean_ul() {
+        const ul = document.querySelector('.cityList');
+        if (ul != null) {
+            ul.remove();
+        }
+    }
+
     inputCity.oninput = function () {
         let receivedCityName = this.value.trim();
-        let data_of_cities = x;
-
 
         if (receivedCityName != '') {
-            // clean ul 
-            const ul = document.querySelector('.cityList');
-            if (ul != null) {
-                ul.remove();
-            }
+
+            clean_ul();
 
             // create ul element in html
             let cityList = document.createElement('ul');
@@ -70,10 +72,13 @@ function inputSearchCity(x) {
                         li.id = item.id;
                         li.className = "cityList";
                         li.innerHTML = item.name;
+
                         cityList.append(li);
                         stopFunction++;
                     }
-
+                    else {
+                        return;
+                    }
                 }
             })
 
@@ -83,18 +88,18 @@ function inputSearchCity(x) {
                 newCitysList[key].onclick = function () {
                     sendingRequest(`id=${this.id}`)
                     inputCity.value = this.childNodes.item(0).nodeValue;
-                    const ul = document.querySelector('.cityList');
-                    if (ul != null) {
-                        ul.remove();
-                    }
+                    clean_ul();
                 }
             }
+        }
+        else {
+            clean_ul();
         }
     }
 }
 
-function sendingRequest(x) {
-    fetch(`https://api.openweathermap.org/data/2.5/weather?${x}&appid=c148c178ddd0d5744ea80723e19b4cb0`)
+function sendingRequest(id) {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?${id}&appid=c148c178ddd0d5744ea80723e19b4cb0`)
         .then(function (resp) { return resp.json() })
         .then(function (data) {
             document.querySelector('.cityName').textContent = data.name;
@@ -107,10 +112,9 @@ function sendingRequest(x) {
             document.querySelector('.wind-speed').innerHTML = `${data.wind.speed} m/s`;
             document.querySelector('.pointer').style.transform = `rotate(${data.wind.deg}deg)`;
             document.querySelector('.wind').setAttribute("data-title", cardinalDirection(data.wind.deg));
-
         })
         .catch(function () {
-            // catch any errors
+            alert("sorry server has some problems,<br> we work on this now, please try later");
         });
 }
 
@@ -167,7 +171,7 @@ function cardinalDirection(x) {
 
 beckgroundImage()
 function beckgroundImage() {
-    let x = Math.floor((Math.random() * 7) + 1);
+    let x = Math.floor((Math.random() * 4) + 1);
     let b = Math.floor((Math.random() * 3) + 1);
     let c = Math.floor((Math.random() * 6) + 1);
     let y = "";
@@ -180,13 +184,17 @@ function beckgroundImage() {
     if (b == 3) {
         y = "p";
     }
+    new Image().src = `./img/pk/${x}${y}.jpg`;
+    new Image().src = `./img/mobile/${c}.jpg`;
 
-    if (window.matchMedia("(max-width: 500px)").matches == true) {
-        document.body.style.backgroundImage = `url(./img/mobile/${c}.jpg)`;
-    }
-    if (window.matchMedia("(max-width: 500px)").matches == false) {
-        document.body.style.backgroundImage = `url(./img/pk/${x}${y}.jpg)`;
-    }
+    setTimeout(function () {
+        if (window.matchMedia("(max-width: 500px)").matches == true) {
+            document.body.style.backgroundImage = `url(./img/mobile/${c}.jpg)`;
+        }
+        if (window.matchMedia("(max-width: 500px)").matches == false) {
+            document.body.style.backgroundImage = `url(./img/pk/${x}${y}.jpg)`;
+        }
+    }, 1000);
     setTimeout(beckgroundImage, 10000);
 }
 
