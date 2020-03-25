@@ -276,6 +276,9 @@ html, body {
 }
 
 @media screen and (max-width:500px) {
+    html, body {
+        letter-spacing: 1px;
+    }
     .side-header, .watch {
         padding-bottom: 5%;
     }
@@ -295,6 +298,9 @@ html, body {
     .country {
         margin-top: 10px;
         margin-bottom: 10px;
+    }
+    .temp {
+        margin-top: 18%;
     }
     .description {
         font-size: 0.8rem;
