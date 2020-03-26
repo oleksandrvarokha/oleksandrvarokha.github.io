@@ -10,13 +10,13 @@ function geoApi() {
 }
 geoApi();
 
-
-setTimeout(function time() {
+time();
+setTimeout(time, 30000);
+function time() {
     const outTime = document.querySelector(".time");
     let time = new Date();
     hr = time.getHours();
     min = time.getMinutes();
-
     if (hr < 10) {
         hr = "0" + hr;
     }
@@ -24,7 +24,8 @@ setTimeout(function time() {
         min = "0" + min;
     }
     outTime.innerHTML = `${hr} : ${min}`;
-}, 30000);
+    console.log(min);
+};
 
 fetch("./cityList.json")
     .then(function (resp) { return resp.json() })
@@ -168,7 +169,7 @@ function cardinalDirection(x) {
     }
 }
 
-beckgroundImage()
+beckgroundImage();
 function beckgroundImage() {
     let x = Math.floor((Math.random() * 4) + 1);
     let b = Math.floor((Math.random() * 3) + 1);
