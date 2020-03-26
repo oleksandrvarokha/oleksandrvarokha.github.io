@@ -10,9 +10,8 @@ function geoApi() {
 }
 geoApi();
 
-time();
-setTimeout(time, 10000);
-function time() {
+
+setTimeout(function time() {
     const outTime = document.querySelector(".time");
     let time = new Date();
     hr = time.getHours();
@@ -25,7 +24,7 @@ function time() {
         min = "0" + min;
     }
     outTime.innerHTML = `${hr} : ${min}`;
-}
+}, 30000);
 
 fetch("./cityList.json")
     .then(function (resp) { return resp.json() })
