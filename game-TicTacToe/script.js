@@ -3,7 +3,8 @@
 
 const out20 = document.querySelector(".out20");
 const bt_startGame = document.querySelector(".start_game");
-let startFunctionOnlyOneTime = [];
+let bt_restart = document.createElement('button');
+let startFunctionOnlyOneTime = 0;
 let chekIf_step3_step4_done = [];
 let chekIf_winCombination_done = [];
 let check_win = 10;
@@ -11,15 +12,19 @@ let step2 = 2;
 let step3 = 3;
 let step4 = 4;
 
+
 let game = [
     [0, 0, 0],
     [0, 0, 0],
     [0, 0, 0]
 ];
 
-bt_startGame.onclick = function draw_page() {
+bt_startGame.onclick = () => {
     bt_startGame.remove();
+    drawPage();
+}
 
+function drawPage() {
     for (let i = 0; i < game.length; i++) {
         for (let k = 0; k < game[i].length; k++) {
             out20.innerHTML += `<div class='game' id='id_game' game_lengthArr='${i}' game_key='${k}'><div>`;
@@ -27,10 +32,7 @@ bt_startGame.onclick = function draw_page() {
         out20.innerHTML += "<br>";
     }
     changeValue_moveUser();
-    // changeValue_movePC();
-    // checkWin();
 }
-
 
 function changeValue_moveUser() {
     const div_game = document.querySelectorAll(".game");
@@ -41,7 +43,7 @@ function changeValue_moveUser() {
 
             if (z % 2) {
                 if (z == 1) {
-                    ai_pc_step1_part1(1, 1);
+                    ai_pc_step1_part1(1, 1, 0, 0, 0, 2, 2, 0, 2, 2);
                 }
                 else if (z == 3) {
                     winCombination(step2);
@@ -55,7 +57,7 @@ function changeValue_moveUser() {
                     winCombination(step4);
                 }
                 else if (z == 9) {
-                    alert("We have a tie");
+                    craeteElement("We have a tie")
                 }
                 z++;
             }
@@ -90,16 +92,32 @@ function add_value_4_in_arr_game() {
 }
 
 
-function ai_pc_step1_part1(a, b) {
+function ai_pc_step1_part1(a, b, c, d, e, f, g, h, l, j) {
     const id_game = document.querySelectorAll("#id_game");
 
-    if (game[a][b] == 0) {
-        add_red_squire(4, id_game);
+    if (game[a][b] == 3) {
+        let combIdGame = [0, 2, 6, 8];
+        let random = getRandomInt(0, 4);
+
+        if (id_game[combIdGame[random]].classList.contains('game') == true) {
+            add_red_squire(combIdGame[random], id_game);
+        }
+    }
+    else if (game[c][d] == 3) {
+        add_red_squire(8, id_game);
+    }
+    else if (game[e][f] == 3) {
+        add_red_squire(6, id_game);
+    }
+    else if (game[g][h] == 3) {
+        add_red_squire(2, id_game);
+    }
+    else if (game[l][g] == 3) {
+        add_red_squire(0, id_game);
     }
     else {
         let combIdGame = [0, 2, 6, 8];
         let random = getRandomInt(0, 4);
-        console.log(random)
 
         if (id_game[combIdGame[random]].classList.contains('game') == true) {
             add_red_squire(combIdGame[random], id_game);
@@ -107,19 +125,19 @@ function ai_pc_step1_part1(a, b) {
     }
 }
 
+
 function add_red_squire(value, id_game) {
-    startFunctionOnlyOneTime.push(1);
-    if (startFunctionOnlyOneTime.length < 2) {
+    startFunctionOnlyOneTime++;
+    if (startFunctionOnlyOneTime < 2) {
         id_game[value].classList.remove('game');
         id_game[value].classList.add('game2');
         chekIf_step3_step4_done.pop();
-        console.log("part3_1_and_part4")
     }
 };
 
 
 function winCombination(step) {
-    startFunctionOnlyOneTime = [];
+    startFunctionOnlyOneTime = 0;
     //ai_pc_step2_part2(game[x][x], game[x][x], game[x][x], win_length(0-8), win_length(0-8)); 
     // 0 0 x
     ai_pc(0, 0, 0, 1, 0, 2, 2, 1, step);
@@ -157,7 +175,6 @@ function ai_pc(a, b, c, d, e, f, x, z, step) {
         ai_pc_step3_and_step4_part2(a, b, c, d, e, f, x, z, step);
     }
     if (step == 4) {
-        console.log(chekIf_step3_step4_done.length);
         ai_pc_step3_and_step4_part2(a, b, c, d, e, f, x, z, step);
     }
     if (step == 10) {
@@ -171,32 +188,27 @@ function ai_pc_step2_part2(a, b, c, d, e, f, x, z) {
     if (game[a][b] == 3 && game[c][d] == 3 && game[e][f] == 0) {
         id_game[x].classList.remove('game');
         id_game[x].classList.add('game2');
-        console.log("part2_1")
     }
     else if (game[a][b] == 3 && game[c][d] == 3 && game[e][f] == 4) {
-        startFunctionOnlyOneTime.push(1);
-        if (startFunctionOnlyOneTime.length < 2) {
+        startFunctionOnlyOneTime++;
+        if (startFunctionOnlyOneTime < 2) {
             ai_pc_step2_part3_whenWeHave1RedSquare();
-            console.log("part2_2")
         }
     }
     else if (game[a][b] == 3 && game[c][d] == 0 && game[e][f] == 3) {
         id_game[z].classList.remove('game');
         id_game[z].classList.add('game2');
-        console.log("part2_3")
     }
     else if (game[a][b] == 3 && game[c][d] == 4 && game[e][f] == 3) {
-        startFunctionOnlyOneTime.push(1);
-        if (startFunctionOnlyOneTime.length < 2) {
+        startFunctionOnlyOneTime++;
+        if (startFunctionOnlyOneTime < 2) {
             ai_pc_step2_part3_whenWeHave1RedSquare();
         }
-        console.log("part2_4")
     }
 }
 
 function ai_pc_step2_part3_whenWeHave1RedSquare() {
     const id_game = document.querySelectorAll("#id_game");
-    console.log("ai_pc_part1_step2")
     for (i = 0; i < id_game.length; i++) {
         if (id_game[i].classList.contains('game2') == true) {
             let game_key = id_game[i].getAttribute("all_lengths");
@@ -247,18 +259,15 @@ function ai_pc_step2_part3_check_and_remove_classlist(a, b, c, d, e, f, g, h) {
     if (id_game[comb1].classList.contains('game') == true) {
         id_game[comb1].classList.remove('game');
         id_game[comb1].classList.add('game2');
-        console.log("ai_pc_part1_part3_1")
     }
     else {
         for (let i = 1; i <= combination.length; i++) {
             let comb2 = combination[random + i];
             let comb3 = combination[random - i];
-            console.log("ai_pc_part1_part3_2")
             if (comb2 != undefined) {
                 if (id_game[comb2].classList.contains('game') == true) {
                     id_game[comb2].classList.remove('game');
                     id_game[comb2].classList.add('game2');
-                    console.log("ai_pc_part1_part3_3")
                     return;
                 }
             }
@@ -266,7 +275,6 @@ function ai_pc_step2_part3_check_and_remove_classlist(a, b, c, d, e, f, g, h) {
                 if (id_game[comb3].classList.contains('game') == true) {
                     id_game[comb3].classList.remove('game');
                     id_game[comb3].classList.add('game2');
-                    console.log("ai_pc_part1_part3_4")
                     return;
                 }
             }
@@ -288,11 +296,10 @@ function ai_pc_step2_part4_mistakeUser() {
 
 function ai_pc_step2_part5_mistakeUser(a, b, c, d, e, f, x, z) {
     if (game[a][b] == 3 && game[c][d] == 3 || game[e][f] == 3 && game[x][z] == 3) {
-        startFunctionOnlyOneTime.push(1);
-        if (startFunctionOnlyOneTime.length < 2) {
+        startFunctionOnlyOneTime++;
+        if (startFunctionOnlyOneTime < 2) {
             ai_pc_step2_part3_whenWeHave1RedSquare();
         }
-        console.log("part2_5")
     }
 }
 
@@ -300,7 +307,6 @@ function ai_pc_step2_part5_mistakeUser(a, b, c, d, e, f, x, z) {
 function ai_pc_step3_and_step4_part2(a, b, c, d, e, f, x, z, step) {
     const id_game = document.querySelectorAll("#id_game");
     chekIf_step3_step4_done.push(1);
-    console.log(step);
 
     if (game[a][b] == 4 && game[c][d] == 4 && game[e][f] == 0) {
         add_red_squire(x, id_game);
@@ -325,8 +331,8 @@ function ai_pc_step3_and_step4_part2(a, b, c, d, e, f, x, z, step) {
         winCombination(step);
     }
     if (chekIf_step3_step4_done.length > 31) {
-        startFunctionOnlyOneTime.push(1);
-        if (startFunctionOnlyOneTime.length < 2) {
+        startFunctionOnlyOneTime++;
+        if (startFunctionOnlyOneTime < 2) {
             if (step == 3) {
                 ai_pc_step2_part3_check_and_remove_classlist(0, 2, 6, 8);
             }
@@ -341,38 +347,55 @@ function ai_pc_check_win(a, b, c, d, e, f) {
     if (chekIf_winCombination_done.length < 2) {
         if (game[a][b] == 3 && game[c][d] == 3 && game[e][f] == 3) {
             chekIf_winCombination_done.push(1);
-            alert("You win");
-            return;
+            if (chekIf_winCombination_done.length < 2) {
+                craeteElement("You win");
+            }
         }
         else if (game[a][b] == 4 && game[c][d] == 4 && game[e][f] == 4) {
             chekIf_winCombination_done.push(1);
-            alert("PC win, try again");
-            return;
+            if (chekIf_winCombination_done.length < 2) {
+                craeteElement("You lose");
+            }
         }
     }
 }
 
+function craeteElement(result) {
+    let out = document.createElement('div');
+    if (result == "You win") {
+        out.innerHTML = result;
+    }
+    else if (result == "You lose") {
+        out.innerHTML = result;
+    }
+    else {
+        out.innerHTML = result;
+    }
+    out.classList.add('result');
+    document.querySelector('.out20').before(out);
+
+    bt_restart.innerHTML = "Restart game";
+    bt_restart.classList.add('bt_restart');
+    document.querySelector('.result').appendChild(bt_restart);
 
 
+}
 
-// function ai_pc_step3_and_step4_part2_combination() {
-//     startFunctionOnlyOneTime = [];
-//     //ai_pc_step2_part2(game[x][x], game[x][x], game[x][x], win_length(0-8), win_length(0-8)); 
-//     // 0 0 x
-//     ai_pc_step3_and_step4_part2(1, 0, 0, 1, 0, 0, 0);
-//     ai_pc_step3_and_step4_part2(0, 1, 1, 2, 0, 2, 2);
-//     ai_pc_step3_and_step4_part2(2, 1, 1, 2, 2, 2, 8);
-//     ai_pc_step3_and_step4_part2(2, 1, 1, 0, 2, 0, 6);
-// }
+bt_restart.onclick = () => {
+    const result = document.querySelector('.result');
+    out20.innerHTML = "";
+    result.remove();
+    game = [
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+    ];
+    startFunctionOnlyOneTime = 0;
+    chekIf_step3_step4_done = [];
+    chekIf_winCombination_done = [];
 
-// function ai_pc_step3_and_step4_part2(a, b, c, d, e, f, x, z) {
-//     const id_game = document.querySelectorAll("#id_game");
-
-//     if (game[a][b] == 4 && game[c][d] == 4 && game[e][f] == 0) {
-//         add_red_squire(x, id_game);
-//     }
-// }
-
+    drawPage();
+}
 
 
 
@@ -384,6 +407,7 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
 }
+
 
 // 2players
 // function changeValue_moveUser() {
