@@ -1,0 +1,126 @@
+html,
+body {
+    font-family: serif;
+}
+
+body {
+    margin: 20px  20px 20px;
+  
+}
+
+.css-2 {
+    background: #c0c0c0;
+}
+
+.css-3 {
+    background: yellow;
+}
+
+.css-4 {
+    background: orange;
+}
+
+.css-5 {
+    background: red;
+}
+
+.active {
+    border: 2px solid black;
+}
+
+.css-1 {
+    background: green;
+}
+input {
+   width: 50%;
+   margin: 5px;
+}
+button {
+    border-radius: 10px;
+    border-color: orange;
+    width: 300px;
+    height: 40px;
+    text-align: 10px;
+    margin: 5px;
+    }
+
+.out11  {
+    word-spacing: 10px;
+    line-height: 160%;
+    margin: 20px;
+}
+
+section {
+    padding: 10px;
+    margin: 20px 0px;
+}
+
+section::after {
+    content: " ";
+    display: block;
+    width: 100%;
+    clear: both;
+}
+
+.out12  {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 400px;
+    word-spacing: 0px;
+    line-height: 100%;
+}
+
+.wite_block {
+    float: left;
+    height: 50px;
+    width: 50px;
+    background: burlywood;
+}
+
+.black_block {
+    float: left;
+    height: 50px;
+    width: 50px;
+    background: black;
+}
+
+.out20  {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 318px;
+    word-spacing: 0px;
+    line-height: 100%;
+    background: black;
+}
+
+.out20::after {
+    content: " ";
+    display: block;
+    width: 100%;
+    clear: both;
+}
+
+.game {
+    float: left;
+    height: 100px;
+    width: 100px;
+    background: rgb(246, 255, 225);
+    margin: 3px;
+}
+
+
+.game1 {
+    float: left;
+    height: 100px;
+    width: 100px;
+    background: rgb(138, 185, 117);
+    margin: 3px;
+}
+
+.game2 {
+    float: left;
+    height: 100px;
+    width: 100px;
+    background: rgb(185, 117, 128);
+    margin: 3px;
+}
